@@ -210,7 +210,7 @@ source to /etc/kolla/octavia-openrc.sh
 source /etc/kolla/octavia-openrc.sh
 ```
 
-### 17. Create Amphora Image
+### 18. Create Amphora Image
 
 Install Dependencies
 ```
@@ -236,19 +236,19 @@ cd octavia/diskimage-create
 ./diskimage-create.sh
 ```
 
-### 18. Register the image in Glance
+### 19. Register the image in Glance
 
 ```
 openstack image create amphora-x64-haproxy.qcow2 --container-format bare --disk-format qcow2 --private --tag amphora --file amphora-x64-haproxy.qcow2
 ```
 
-### 19. Create Amphora Flavor
+### 20. Create Amphora Flavor
 
 ```
 openstack flavor create --vcpus 1 --ram 1024 --disk 2 "amphora" --private
 ```
 
-### 20. Create Amphora Security Group
+### 21. Create Amphora Security Group
 
 ```
 openstack security group create lb-mgmt-sec-grp
@@ -257,7 +257,13 @@ openstack security group rule create --protocol tcp --dst-port 22 lb-mgmt-sec-gr
 openstack security group rule create --protocol tcp --dst-port 9443 lb-mgmt-sec-grp
 ```
 
-### 21. Create Amphora Management Network
+### 22. Create Amphora Keypair
+
+```
+openstack keypair create --public-key ~/.ssh/id_rsa.pub octavia_ssh_key
+```
+
+### 23. Create Amphora Management Network
 
 ```
 sudo docker exec -it openvswitch_vswitchd bash
@@ -322,7 +328,7 @@ sudo ip link set dev octavia-int address $MGMT_PORT_MAC
 sudo dhclient octavia-int; ip r del default via 172.16.0.1 dev octavia-int
 ```
 
-### 21. Add the octavia resource id into globals.yml
+### 24. Add the octavia resource id into globals.yml
 
 out of the docker (bask to regular user)
 
@@ -348,7 +354,7 @@ octavia_amp_secgroup_list: <ID of lb-mgmt-sec-grp>
 octavia_amp_flavor_id: <ID of amphora flavor>
 ```
 
-### 22. Reconfigure Octavia
+### 25. Reconfigure Octavia
 
 ```
 kolla-ansible reconfigure -t octavia
