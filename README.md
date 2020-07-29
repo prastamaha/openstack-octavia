@@ -276,7 +276,7 @@ OCTAVIA_MGMT_SUBNET_END=172.16.31.254
 Create octavia-openrc.sh_
 
 ```
-sudo nano /etc/kolla/octavia-openrc.sh
+vi octavia-openrc.sh
 
 for key in $( set | awk '{FS="="}  /^OS_/ {print $1}' ); do unset $key ; done
 export OS_PROJECT_DOMAIN_NAME=Default
