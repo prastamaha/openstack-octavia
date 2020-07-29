@@ -292,6 +292,11 @@ export OS_IDENTITY_API_VERSION=3
 export OS_REGION_NAME=RegionOne
 export OS_AUTH_PLUGIN=password
 ```
+Source octavia-openrc.sh_
+
+```
+source octavia-openrc.sh
+```
 
 Create Network
 
