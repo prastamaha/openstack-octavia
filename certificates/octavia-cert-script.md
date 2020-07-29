@@ -46,4 +46,5 @@ cd single_ca/etc/octavia/certs/
 sudo mkdir -p /etc/kolla/config/octavia
 sudo chown -R $USER:$USER /etc/kolla/config
 cp * /etc/kolla/config/octavia
+cd ~
 ```
