@@ -272,6 +272,27 @@ OCTAVIA_MGMT_SUBNET=172.16.0.0/12
 OCTAVIA_MGMT_SUBNET_START=172.16.0.100
 OCTAVIA_MGMT_SUBNET_END=172.16.31.254
 ```
+
+Create octavia-openrc.sh_
+
+```
+sudo nano /etc/kolla/octavia-openrc.sh
+
+for key in $( set | awk '{FS="="}  /^OS_/ {print $1}' ); do unset $key ; done
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=admin
+export OS_TENANT_NAME=admin
+export OS_USERNAME=octavia
+export OS_PASSWORD=VQ2vA5AsFZLzt1t1FK39sMMu2R5BXMSSXtIXOWow
+export OS_AUTH_URL=http://10.10.110.11:35357/v3
+export OS_INTERFACE=internal
+export OS_ENDPOINT_TYPE=internalURL
+export OS_IDENTITY_API_VERSION=3
+export OS_REGION_NAME=RegionOne
+export OS_AUTH_PLUGIN=password
+```
+
 Create Network
 
 ```
