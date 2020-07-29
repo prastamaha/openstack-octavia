@@ -319,7 +319,7 @@ Assign port into controller node
 sudo ovs-vsctl -- --may-exist add-port br-int octavia-int -- set Interface octavia-int type=internal -- set Interface octavia-int external-ids:iface-status=active -- set Interface octavia-int external-ids:attached-mac=$MGMT_PORT_MAC -- set Interface octavia-int external-ids:iface-id=$MGMT_PORT_ID
 
 sudo ip link set dev octavia-int address $MGMT_PORT_MAC
-sudo dhclient octavia-int
+sudo dhclient octavia-int; ip r del default via 172.16.0.1 dev octavia-int
 ```
 
 ### 21. Add the octavia resource id into globals.yml
