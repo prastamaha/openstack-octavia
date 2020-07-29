@@ -167,7 +167,7 @@ Using Script (For Testing) follow this [step](certificates/octavia-cert-script.m
 ```
 kolla-ansible -i ./multinode bootstrap-servers
 kolla-ansible -i ./multinode prechecks
-kolla-ansible -i ./multinode prechecks
+kolla-ansible -i ./multinode deploy
 ```
 
 ### 16. Post Deploy
