@@ -44,6 +44,6 @@ sed -i 's/not-secure-passphrase/OgY7o4XSLqRIrEWkQOJPeuGeDZgMI8zpyYPIlxvE/g' crea
 ```
 cd single_ca/etc/octavia/certs/
 sudo mkdir -p /etc/kolla/config/octavia
-sudo chown -R prasta:prasta /etc/kolla/config
+sudo chown -R $USER:$USER /etc/kolla/config
 cp * /etc/kolla/config/octavia
 ```

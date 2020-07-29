@@ -227,9 +227,10 @@ cat certs/client.cert.pem >> private/client.cert-and-key.pem
 ```
 cd ..
 sudo mkdir -p /etc/kolla/config/octavia
-sudo chown -R prasta:prasta /etc/kolla/config
+sudo chown -R $USER:$USER /etc/kolla/config
 cp client_ca/certs/ca.cert.pem /etc/kolla/config/octavia/client_ca.cert.pem
 cp server_ca/certs/ca.cert.pem /etc/kolla/config/octavia/server_ca.cert.pem
 cp server_ca/private/ca.key.pem /etc/kolla/config/octavia/server_ca.key.pem
 cp client_ca/private/client.cert-and-key.pem /etc/kolla/config/octavia/client.cert-and-key.pem
+cd ~
 ```
