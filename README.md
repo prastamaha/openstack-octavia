@@ -78,7 +78,7 @@ forks=100
 
 ### 8. Configure __/etc/hosts__ 
 ```
-nano /etc/hosts
+sudo nano /etc/hosts
 
 127.0.0.1 localhost
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
