@@ -363,3 +363,7 @@ octavia_amp_flavor_id: <ID of amphora flavor>
 ```
 kolla-ansible reconfigure -t octavia
 ```
+
+### 26. Openstack Resource Create Using CLI (Optional)
+
+[step](openstack-resource-cli.md)
