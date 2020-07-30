@@ -239,6 +239,11 @@ cd octavia/diskimage-create
 ### 19. Register the image in Glance
 
 ```
+cd ~
+source kolla-install/bin/activate
+```
+
+```
 openstack image create amphora-x64-haproxy.qcow2 --container-format bare --disk-format qcow2 --private --tag amphora --file amphora-x64-haproxy.qcow2
 ```
 
