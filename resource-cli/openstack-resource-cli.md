@@ -56,6 +56,7 @@ openstack subnet create --network private-net \
   --dns-nameserver $DNS_RESOLVER --gateway $PRIVATE_NETWORK_GATEWAY \
   --subnet-range $PRIVATE_NETWORK_CIDR private-subnet
 ```
+## Router
 
 ### Create Router
 
@@ -66,6 +67,8 @@ openstack router create myrouter
 ```
 openstack router add port myrouter private-subnet
 ```
+
+## Image
 
 ### Create Public Image
 
@@ -88,8 +91,21 @@ openstack image create --disk-format qcow2 --container-format bare \
   --public --file ./bionic-server-cloudimg-amd64.img bionic-server-cloudimg-amd64
 ```
 
+## Flavor
+
 ### Create Flavor
 
 ```
 openstack flavor create --ram 512 --disk 5 --vcpus 1 --public small
+```
+
+## Security Group
+
+### Create Security Group Allow All ingress traffic
+
+```
+openstack security group create allow-all-traffic --description 'Allow All Ingress Traffic'
+openstack security group rule create --protocol icmp allow-all-traffic
+openstack security group rule create --protocol tcp  allow-all-traffic
+openstack security group rule create --protocol udp  allow-all-traffic
 ```
