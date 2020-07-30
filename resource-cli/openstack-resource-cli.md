@@ -65,7 +65,7 @@ openstack router create myrouter
 ```
 
 ```
-openstack router add port myrouter private-subnet
+openstack router add subnet myrouter private-subnet
 ```
 
 ## Image
