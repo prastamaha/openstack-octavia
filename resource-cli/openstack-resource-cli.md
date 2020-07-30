@@ -62,6 +62,7 @@ openstack subnet create --network private-net \
 
 ```
 openstack router create myrouter
+openstack router set --external-gateway public-net myrouter
 ```
 
 ```
@@ -108,4 +109,34 @@ openstack security group create allow-all-traffic --description 'Allow All Ingre
 openstack security group rule create --protocol icmp allow-all-traffic
 openstack security group rule create --protocol tcp  allow-all-traffic
 openstack security group rule create --protocol udp  allow-all-traffic
+```
+
+## Key Pair
+
+### Using Controller Node ssh public-key
+
+openstack keypair create --public-key ~/.ssh/id_rsa.pub controller-key
+
+## Instance
+
+### Cirros Instance
+
+```
+openstack server create --flavor small \
+  --image cirros-0.5.1-x86_64-disk \
+  --key-name controller-key \
+  --security-group allow-all-traffic \
+  --network private-net \
+  cirros0
+```
+
+### Ubuntu Instance
+
+```
+openstack server create --flavor small \
+  --image bionic-server-cloudimg-amd64 \
+  --key-name controller-key \
+  --security-group allow-all-traffic \
+  --network private-net \
+  ubuntu0
 ```

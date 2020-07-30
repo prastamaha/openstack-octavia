@@ -364,6 +364,13 @@ octavia_amp_flavor_id: <ID of amphora flavor>
 kolla-ansible reconfigure -t octavia
 ```
 
-### 26. Openstack Resource Create Using CLI (Optional)
+### 26. Install octavia client
+```
+source ~/kolla-install/bin/activate
+source /etc/kolla/admin-openrc.sh
+pip install python-octaviaclient
+```
+
+### 27. Openstack Resource Create Using CLI (Optional)
 
 [step](resource-cli/openstack-resource-cli.md)
