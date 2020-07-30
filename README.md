@@ -239,7 +239,7 @@ cd octavia/diskimage-create
 ### 19. Register the image in Glance
 
 ```
-source kolla-install/bin/activate
+source ~/kolla-install/bin/activate
 ```
 
 ```
