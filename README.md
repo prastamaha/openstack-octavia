@@ -366,4 +366,4 @@ kolla-ansible reconfigure -t octavia
 
 ### 26. Openstack Resource Create Using CLI (Optional)
 
-[step](openstack-resource-cli.md)
+[step](resource-cli/openstack-resource-cli.md)
