@@ -71,6 +71,15 @@ sudo chown $USER:$USER server.p12
 ```
 openstack secret store --name='tls_secret_prasta_me' -t 'application/octet-stream' -e 'base64' --payload="$(base64 < server.p12)"
 ```
+### Add acl for the created secret
+
+if you log in as a tenant, change admin user to your user
+
+```
+secret_id=$(openstack secret list | awk '/ tls_secret1 / {print $2}')
+openstack acl user add -u $(openstack user show admin -c id -f value) $secret_id
+```
+
 
 ### Create LoadBalancer on private-subnet
 
