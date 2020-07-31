@@ -374,3 +374,7 @@ pip install python-octaviaclient
 ### 27. Openstack Resource Create Using CLI (Optional)
 
 [step](resource-cli/openstack-resource-cli.md)
+
+### 28. TLS Termination
+
+[step](tls-termination/tls-termination.md)
