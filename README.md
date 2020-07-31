@@ -375,6 +375,7 @@ pip install python-octaviaclient
 
 [step](resource-cli/openstack-resource-cli.md)
 
-### 28. TLS Termination
+## Octavia Load Balancer scenarios
+- [Basic Http](scenarios/basic-http.md)
+- [TLS Termination](scenarios/tls-termination.md)
 
-[step](tls-termination/tls-termination.md)
