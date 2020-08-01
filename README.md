@@ -379,3 +379,14 @@ pip install python-octaviaclient
 - [Basic Http](scenarios/basic-http.md)
 - [TLS Termination](scenarios/tls-termination.md)
 - [TLS Termination with SNI](scenarios/tls-termination-sni.md)
+
+## Issues
+- when controller node goes down, octavia-int configuration will not be automatically recovered. so I made a bash script to overcome this issue
+
+    script: [octavia-bootup.sh](octavia-bootup.sh)
+    
+    run as regular user (non-root)
+
+    ```
+    
+    ```
