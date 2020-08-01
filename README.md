@@ -385,8 +385,11 @@ pip install python-octaviaclient
 
     script: [octavia-bootup.sh](octavia-bootup.sh)
     
-    run as regular user (non-root)
+    run as regular user (make sure your regular user can using sudo without password)
 
     ```
-    
+    cd ~
+    curl https://raw.githubusercontent.com/prastamaha/openstack-octavia/master/issues/octavia-bootup.sh > octavia-bootup.sh
+    chmod +x octavia-bootup.sh
+    ./octavia-bootup.sh
     ```
