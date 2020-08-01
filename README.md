@@ -378,4 +378,4 @@ pip install python-octaviaclient
 ## Octavia Load Balancer scenarios
 - [Basic Http](scenarios/basic-http.md)
 - [TLS Termination](scenarios/tls-termination.md)
-
+- [TLS Termination with SNI](scenarios/tls-termination-sni.md)

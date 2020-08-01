@@ -51,7 +51,7 @@ openstack loadbalancer pool create --name pool1 --lb-algorithm ROUND_ROBIN --lis
 
 ### Create health monitor
 ```
-openstack loadbalancer healthmonitor create --delay 5 --max-retries 4 --timeout 10 --type HTTP --url-path /healthcheck pool1
+openstack loadbalancer healthmonitor create --delay 5 --max-retries 3 --timeout 5 --type HTTP --url-path / pool1
 ```
 ### Add Instance become pool member
 ```
