@@ -359,7 +359,7 @@ octavia_amp_secgroup_list: <ID of lb-mgmt-sec-grp>
 octavia_amp_flavor_id: <ID of amphora flavor>
 ```
 
-### 25. Change Octavia Health Manager bind-ip
+### 25. Change Octavia Health Manager Config
 
 ```
 HM_IP=$(openstack port show octavia-hm-port | awk '/ fixed_ips / {print $4}' | cut -d "'" -f 2)
