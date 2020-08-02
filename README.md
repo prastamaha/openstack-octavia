@@ -19,7 +19,7 @@ Openstack Core + Octavia Deployment __Train__
 ### 1. Install Dependencies
 
 ```
-sudo dnf install python3-devel libffi-devel gcc openssl-devel python3-libselinux
+sudo dnf install python3-devel libffi-devel gcc openssl-devel nano git python3-libselinux
 ```
 
 ### 2. Create Virtual Environtment
@@ -196,7 +196,7 @@ export OS_USER_DOMAIN_NAME=Default
 export OS_PROJECT_NAME=admin
 export OS_TENANT_NAME=admin
 export OS_USERNAME=octavia
-export OS_PASSWORD=VQ2vA5AsFZLzt1t1FK39sMMu2R5BXMSSXtIXOWow
+export OS_PASSWORD=<octavia_keystone_password>
 export OS_AUTH_URL=http://10.10.110.11:35357/v3
 export OS_INTERFACE=internal
 export OS_ENDPOINT_TYPE=internalURL
@@ -225,6 +225,7 @@ git clone https://opendev.org/openstack/octavia -b stable/train
 
 Install disk-builder
 ```
+deactivate
 python3 -m venv disk-builder
 source disk-builder/bin/activate
 pip install diskimage-builder
@@ -283,7 +284,7 @@ OCTAVIA_MGMT_SUBNET_START=172.16.0.100
 OCTAVIA_MGMT_SUBNET_END=172.16.31.254
 ```
 
-Create octavia-openrc.sh_
+Create `octavia-openrc.sh_
 
 ```
 vi octavia-openrc.sh
@@ -294,7 +295,7 @@ export OS_USER_DOMAIN_NAME=Default
 export OS_PROJECT_NAME=admin
 export OS_TENANT_NAME=admin
 export OS_USERNAME=octavia
-export OS_PASSWORD=VQ2vA5AsFZLzt1t1FK39sMMu2R5BXMSSXtIXOWow
+export OS_PASSWORD=<octavia_keystone_password>
 export OS_AUTH_URL=http://10.10.110.11:35357/v3
 export OS_INTERFACE=internal
 export OS_ENDPOINT_TYPE=internalURL
@@ -302,7 +303,7 @@ export OS_IDENTITY_API_VERSION=3
 export OS_REGION_NAME=RegionOne
 export OS_AUTH_PLUGIN=password
 ```
-Source octavia-openrc.sh_
+Source `octavia-openrc.sh`
 
 ```
 source octavia-openrc.sh
@@ -319,17 +320,17 @@ neutron subnet-create --name lb-mgmt-subnet --allocation-pool start=$OCTAVIA_MGM
 Create Port
 
 ```
-neutron port-create --name octavia-port --binding:host_id=$HOSTNAME lb-mgmt-net
-MGMT_PORT_ID=$(neutron port-show octavia-port | awk '/ id / {print $4}')
-MGMT_PORT_MAC=$(neutron port-show octavia-port | awk '/ mac_address / {print $4}')
+neutron port-create --name octavia-hm-port --binding:host_id=$HOSTNAME lb-mgmt-net
+MGMT_PORT_ID=$(neutron port-show octavia-hm-port | awk '/ id / {print $4}')
+MGMT_PORT_MAC=$(neutron port-show octavia-hm-port | awk '/ mac_address / {print $4}')
 ```
 Assign port into controller node
 
 ```
-sudo ovs-vsctl -- --may-exist add-port br-int octavia-int -- set Interface octavia-int type=internal -- set Interface octavia-int external-ids:iface-status=active -- set Interface octavia-int external-ids:attached-mac=$MGMT_PORT_MAC -- set Interface octavia-int external-ids:iface-id=$MGMT_PORT_ID
+sudo ovs-vsctl -- --may-exist add-port br-int octavia-hm0 -- set Interface octavia-hm0 type=internal -- set Interface octavia-hm0 external-ids:iface-status=active -- set Interface octavia-hm0 external-ids:attached-mac=$MGMT_PORT_MAC -- set Interface octavia-hm0 external-ids:iface-id=$MGMT_PORT_ID
 
-sudo ip link set dev octavia-int address $MGMT_PORT_MAC
-sudo dhclient octavia-int; ip r del default via 172.16.0.1 dev octavia-int
+sudo ip link set dev octavia-hm0 address $MGMT_PORT_MAC
+sudo dhclient octavia-hm0; ip r del default via 172.16.0.1 dev octavia-hm0
 ```
 
 ### 24. Add the octavia resource id into globals.yml
@@ -358,20 +359,34 @@ octavia_amp_secgroup_list: <ID of lb-mgmt-sec-grp>
 octavia_amp_flavor_id: <ID of amphora flavor>
 ```
 
-### 25. Reconfigure Octavia
+### 25. Change Octavia Health Manager bind-ip
+
+```
+HM_IP=$(openstack port show octavia-hm-port | awk '/ fixed_ips / {print $4}' | cut -d "'" -f 2)
+echo $HM_IP
+```
+```
+nano /etc/kolla/config/octavia.conf
+
+[health_manager]
+bind_ip = <HM_IP>
+controller_ip_port_list = <HM_IP>:5555
+```
+
+### 26. Reconfigure Octavia
 
 ```
 kolla-ansible reconfigure -t octavia
 ```
 
-### 26. Install octavia client
+### 27. Install octavia client
 ```
 source ~/kolla-install/bin/activate
 source /etc/kolla/admin-openrc.sh
 pip install python-octaviaclient
 ```
 
-### 27. Openstack Resource Create Using CLI (Optional)
+### 28. Openstack Resource Create Using CLI (Optional)
 
 [step](resource-cli/openstack-resource-cli.md)
 
@@ -381,9 +396,9 @@ pip install python-octaviaclient
 - [TLS Termination with SNI](scenarios/tls-termination-sni.md)
 
 ## Issues
-- when controller node goes down, octavia-int configuration will not be automatically recovered. so I made a bash script to overcome this issue
+- when controller node goes down, octavia-hm0 configuration will not be automatically recovered. so I made a bash script to overcome this issue
 
-    script: [octavia-bootup.sh](octavia-bootup.sh)
+    script: [octavia-bootup.sh](issues/octavia-bootup.sh)
     
     run as regular user (make sure your regular user can using sudo without password)
 
