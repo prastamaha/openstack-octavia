@@ -240,6 +240,7 @@ cd octavia/diskimage-create
 ### 19. Register the image in Glance
 
 ```
+deactivate
 source ~/kolla-install/bin/activate
 ```
 
