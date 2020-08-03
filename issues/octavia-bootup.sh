@@ -3,7 +3,7 @@
 source /etc/kolla/admin-openrc.sh
 source /home/$USER/kolla-install/bin/activate
 
-sudo ip link set dev octavia-hm0 address $(openstack port list | grep octavia-port | cut -d '|' -f 4)
+sudo ip link set dev octavia-hm0 address $(openstack port list | grep octavia-hm-port | cut -d '|' -f 4)
 
 sudo ifconfig octavia-hm0 up
 

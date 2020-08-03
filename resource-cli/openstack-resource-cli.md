@@ -115,7 +115,9 @@ openstack security group rule create --protocol udp  allow-all-traffic
 
 ### Using Controller Node ssh public-key
 
+```
 openstack keypair create --public-key ~/.ssh/id_rsa.pub controller-key
+```
 
 ## Instance
 
